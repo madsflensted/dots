@@ -6,6 +6,7 @@
     "babel-brunch": "^5.1.1",
     "clean-css-brunch": ">= 1.0 < 1.8",
     "css-brunch": ">= 1.0 < 1.8",
+    "elm-brunch": "0.x",
     "javascript-brunch": ">= 1.0 < 1.8",
     "sass-brunch": "^1.8.10",
     "uglify-js-brunch": ">= 1.0 < 1.8"

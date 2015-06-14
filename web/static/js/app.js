@@ -7,7 +7,15 @@ import {Socket} from "phoenix"
 //   console.log("Success!")
 // })
 
+function setup_elm() {
+  let elmDiv = document.getElementById("elm-main");
+  Elm.embed(Elm.Main, elmDiv)
+}
+
 let App = {
+  init: () => {
+    setup_elm()
+  }
 }
 
 export default App
