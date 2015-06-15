@@ -13,9 +13,11 @@ defmodule Dots.Router do
   end
 
   scope "/", Dots do
-    pipe_through :browser # Use the default browser stack
+    pipe_through :browser 
 
     get "/", PageController, :index
+    get "/board", PageController, :board
+    get "/pad", PageController, :pad
   end
 
   # Other scopes may use custom stacks.

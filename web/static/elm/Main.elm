@@ -3,5 +3,5 @@ module Main where
 import Graphics.Element exposing (show)
 
 main = 
-  "Hello World from Elm!"
+  "Hello CPHEX from Elm!"
   |> show
