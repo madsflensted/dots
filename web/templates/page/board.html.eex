@@ -1,1 +1,1 @@
-<div id="elm-board"></div>
+<div id="elm" data-elm-module="Board"></div>

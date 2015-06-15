@@ -18,7 +18,9 @@
 
     </div> <!-- /container -->
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
-    <script src="<%= static_path(@conn, "/js/main.js") %>"></script>
+    <%# <script src="<%= static_path(@conn, "/js/main.js") %1>"></script> %>
+    <script src="<%= static_path(@conn, "/js/board.js") %>"></script>
+    <script src="<%= static_path(@conn, "/js/pad.js") %>"></script>
     <script> 
       var app = require("web/static/js/app");
       app.init()
