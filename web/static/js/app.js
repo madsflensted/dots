@@ -34,6 +34,7 @@ function setup_board(channel) {
     module.ports.newDots.send(msg.body)
   })
   channel.on("move_dot", (msg) => {
+    // console.log("move_dot " + msg.body.id)
     module.ports.moveDots.send(msg.body)
   })
   channel.on("remove_dot", (msg) => {

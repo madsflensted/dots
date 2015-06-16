@@ -1,8 +1,8 @@
 module Pad where
 
 import Color exposing (Color, rgba)
-import Graphics.Collage exposing (collage, rect, filled)
-import Graphics.Element exposing (Element)
+import Graphics.Collage exposing (collage, rect, filled, toForm)
+import Graphics.Element exposing (Element, show)
 import List exposing (head)
 import Signal
 import Time
@@ -25,7 +25,8 @@ render : (Int, Int) -> Element
 render (w, h) =
   let c = config.color
   in collage w h [
-      rect (w |> toFloat) (h |> toFloat)
+      config.id |> show |> toForm
+    , rect (w |> toFloat) (h |> toFloat)
       |> filled (rgba c.red c.green c.blue c.alpha)
     ]
 
@@ -74,6 +75,8 @@ port movePoint =
                           Move dotMove -> Just dotMove
                           _ -> Nothing
   in Signal.filterMap takeMove (DotMove config.id  0.0  0.0) pointActions
+     |> Signal.sampleOn (Time.fps 10)
+     |> Signal.dropRepeats
 
 port removePoint : Signal ID
 port removePoint =
