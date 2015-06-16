@@ -1,27 +1,21 @@
 import {Socket} from "phoenix"
 
-function setup_pad(channel) {
+function setup_pad(channel, {id: id, color: color}) {
   let defaults = {
     config: {
-      id: 101,
+      id: id,
       radius: 20.0,
-      color: { red: 100, green: 50, blue: 150, alpha: 0.5 }
+      color: { red: color.red, green: color.green, blue: color.blue, alpha: 0.5 }
     }
   }
   let module = Elm.fullscreen(Elm.Pad, defaults)
   module.ports.addPoint.subscribe(dot => {
-    console.log("addPoint:")
-    console.dir(dot);
     channel.push("add_dot", {body: dot})
   })
   module.ports.movePoint.subscribe(value => {
-    console.log("movePoint:")
-    console.dir(value);
     channel.push("move_dot", {body: value})
   })
   module.ports.removePoint.subscribe(id => {
-    console.log("removePoint:")
-    console.dir(id);
     channel.push("remove_dot", {body: id})
   })
 }
@@ -37,15 +31,12 @@ function setup_board(channel) {
   }
   let module = Elm.fullscreen(Elm.Board, defaults)
   channel.on("add_dot", (msg) => {
-    console.dir(msg)
     module.ports.newDots.send(msg.body)
   })
   channel.on("move_dot", (msg) => {
-    console.dir(msg)
     module.ports.moveDots.send(msg.body)
   })
   channel.on("remove_dot", (msg) => {
-    console.dir(msg)
     module.ports.removeDots.send(msg.body)
   })
 }
@@ -57,15 +48,15 @@ function setup_elm(socket) {
     let moduleName = elmDiv.getAttribute('data-elm-module')
     if (moduleName == "Board") {
       let channel = socket.chan("dots:updates", {})
-      channel.join().receive("ok", () => {
+      channel.join().receive("ok", (_config) => {
         console.log("Joined dots:updates")
         setup_board(channel)
       })
     } else if (moduleName == "Pad") {
       let channel = socket.chan("dots:updates", {})
-      channel.join().receive("ok", () => {
+      channel.join().receive("ok", (config) => {
         console.log("Joined dots:updates")
-        setup_pad(channel)
+        setup_pad(channel, config)
       })
     } else {
       throw "Unknown Elm module '" + moduleName + "' !!"
