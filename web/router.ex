@@ -20,8 +20,7 @@ defmodule Dots.Router do
     get "/pad", PageController, :pad
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", Dots do
-  #   pipe_through :api
-  # end
+  socket "/ws", Dots do
+    channel "dots:*", DotsChannel
+  end
 end

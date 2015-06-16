@@ -1,4 +1,4 @@
-module Dot (ID, Dot, RGBA) where
+module Dot (ID, Dot, DotMove, RGBA) where
 
 type alias ID = Int
 
@@ -16,3 +16,6 @@ type alias RGBA = {
   blue : Int,
   alpha : Float
 }
+
+type alias DotMove = { id : ID, x : Float, y : Float }
+

@@ -9,17 +9,15 @@ import Time
 import Touch exposing (Touch, touches)
 import Window
 
-import Dot exposing (ID, Dot, RGBA)
+import Dot exposing (ID, Dot, DotMove, RGBA)
 
 -- Model
-
-type alias Point = { x : Float, y : Float }
 
 initialDot = Dot config.id 0.0 0.0 config.radius config.color
 
 -- Update
 
-type Action = Add Dot | Move (ID, (Float, Float)) | Remove ID
+type Action = Add Dot | Move DotMove | Remove ID
 
 -- View
 
@@ -46,7 +44,7 @@ touchToAction (w, h) touch =
   let (x, y) = toCartesian w h (touch.x, touch.y)
       (x0, y0) = toCartesian w h (touch.x0, touch.y0)
   in if | (x == x0) && (y == y0) -> Add (Dot config.id x y config.radius config.color)
-        | otherwise -> Move (config.id, (x, y))
+        | otherwise -> Move (DotMove config.id x y)
 
 touchesToPoint : (Int, Int) -> List Touch -> Action
 touchesToPoint (w, h) touchs =
@@ -70,12 +68,12 @@ port addPoint =
                          _ -> Nothing
   in Signal.filterMap takeAdd initialDot pointActions
 
-port movePoint : Signal (ID, (Float, Float))
+port movePoint : Signal DotMove
 port movePoint =
   let takeMove action = case action of
-                          Move (id, point) -> Just (id, point)
+                          Move dotMove -> Just dotMove
                           _ -> Nothing
-  in Signal.filterMap takeMove (config.id, (0.0, 0.0)) pointActions
+  in Signal.filterMap takeMove (DotMove config.id  0.0  0.0) pointActions
 
 port removePoint : Signal ID
 port removePoint =

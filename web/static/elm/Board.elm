@@ -6,7 +6,7 @@ import Graphics.Element exposing (..)
 import List
 import Window
 
-import Dot exposing (ID, Dot, RGBA)
+import Dot exposing (ID, Dot, DotMove, RGBA)
 
 -- Model
 
@@ -18,7 +18,7 @@ initialModel = Model []
 
 -- Update
 
-type Action = Add Dot | Move (ID, (Float, Float)) | Remove ID
+type Action = Add Dot | Move DotMove | Remove ID
 
 update : Action -> Model -> Model
 update action model =
@@ -29,7 +29,7 @@ update action model =
     Remove id ->
       { model | dots <- List.filter (\dot -> dot.id /= id) model.dots }
 
-    Move (id, (x, y)) ->
+    Move {id, x, y} ->
       { model | dots <- List.map (\dot -> if dot.id == id then { dot | x <- x, y <- y } else dot) model.dots }
 
 -- View
@@ -50,13 +50,20 @@ renderDot dot =
 
 dotSignal : Signal Action
 dotSignal =
-  Signal.merge (Signal.map Add newDots) (Signal.map Move moveDots)
+  Signal.mergeMany [
+      Signal.map Add newDots
+    , Signal.map Move moveDots
+    , Signal.map Remove removeDots
+    ]
+
 
 -- Port
 
 port newDots : Signal Dot
 
-port moveDots : Signal (ID, (Float, Float))
+port moveDots : Signal DotMove
+
+port removeDots : Signal ID
 
 -- Main
 
