@@ -75,8 +75,10 @@ port movePoint =
                           Move dotMove -> Just dotMove
                           _ -> Nothing
   in Signal.filterMap takeMove (DotMove config.id  0.0  0.0) pointActions
-     |> Signal.sampleOn (Time.fps 10)
-     |> Signal.dropRepeats
+     |> Signal.sampleOn (Time.fps 60)
+
+
+     -- |> Signal.dropRepeats
 
 port removePoint : Signal ID
 port removePoint =
