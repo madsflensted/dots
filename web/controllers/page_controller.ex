@@ -7,11 +7,11 @@ defmodule Dots.PageController do
     render conn, "index.html"
   end
 
-  def pad(conn, _params) do
-    render conn, "pad.html"
-  end
+  # def pad(conn, _params) do
+  #   render conn, "pad.html"
+  # end
 
-  def board(conn, _params) do
-    render conn, "board.html"
-  end
+  # def board(conn, _params) do
+  #   render conn, "board.html"
+  # end
 end

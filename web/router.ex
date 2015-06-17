@@ -16,12 +16,8 @@ defmodule Dots.Router do
     pipe_through :browser 
 
     get "/", PageController, :index
-    get "/board", PageController, :board
-    get "/pad", PageController, :pad
+    # get "/board", PageController, :board
+    # get "/pad", PageController, :pad
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", Dots do
-  #   pipe_through :api
-  # end
 end
