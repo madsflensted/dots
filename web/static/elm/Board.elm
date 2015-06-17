@@ -16,49 +16,49 @@ type alias Model = {
 
 initialModel = Model []
 
--- Update
+-- -- Update
 
-type Action = Add Dot | Move (ID, (Float, Float)) | Remove ID
+-- type Action = Add Dot | Move (ID, (Float, Float)) | Remove ID
 
-update : Action -> Model -> Model
-update action model =
-  case action of
-    Add dot ->
-      { model | dots <- model.dots ++ [dot] }
+-- update : Action -> Model -> Model
+-- update action model =
+--   case action of
+--     Add dot ->
+--       { model | dots <- model.dots ++ [dot] }
 
-    Remove id ->
-      { model | dots <- List.filter (\dot -> dot.id /= id) model.dots }
+--     Remove id ->
+--       { model | dots <- List.filter (\dot -> dot.id /= id) model.dots }
 
-    Move (id, (x, y)) ->
-      { model | dots <- List.map (\dot -> if dot.id == id then { dot | x <- x, y <- y } else dot) model.dots }
+--     Move (id, (x, y)) ->
+--       { model | dots <- List.map (\dot -> if dot.id == id then { dot | x <- x, y <- y } else dot) model.dots }
 
--- View
+-- -- View
 
-view : (Int, Int) -> Model -> Element
-view (w, h) model =
-  List.map renderDot model.dots
-  |> collage w h
+-- view : (Int, Int) -> Model -> Element
+-- view (w, h) model =
+--   List.map renderDot model.dots
+--   |> collage w h
 
-renderDot : Dot -> Form
-renderDot dot =
-  let c = dot.color
-  in circle dot.radius
-     |> filled (rgba c.red c.green c.blue c.alpha)
-     |> move (dot.x, dot.y)
+-- renderDot : Dot -> Form
+-- renderDot dot =
+--   let c = dot.color
+--   in circle dot.radius
+--      |> filled (rgba c.red c.green c.blue c.alpha)
+--      |> move (dot.x, dot.y)
 
--- Signal
+-- -- Signal
 
-dotSignal : Signal Action
-dotSignal =
-  Signal.merge (Signal.map Add newDots) (Signal.map Move moveDots)
+-- dotSignal : Signal Action
+-- dotSignal =
+--   Signal.merge (Signal.map Add newDots) (Signal.map Move moveDots)
 
--- Port
+-- -- Port
 
-port newDots : Signal Dot
+-- port newDots : Signal Dot
 
-port moveDots : Signal (ID, (Float, Float))
+-- port moveDots : Signal (ID, (Float, Float))
 
--- Main
+-- -- Main
 
--- Should use Signal.merge here
-main = Signal.map2 view Window.dimensions <| Signal.foldp update initialModel dotSignal
+-- -- Should use Signal.merge here
+-- main = Signal.map2 view Window.dimensions <| Signal.foldp update initialModel dotSignal
