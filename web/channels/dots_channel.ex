@@ -3,7 +3,9 @@ defmodule Dots.DotsChannel do
 
   def join("dots:updates", _auth_msg, socket) do
     :random.seed(:erlang.now())
-    {:ok, %{"id" => random_id, "color" => random_color}, socket}
+    dot_id = random_id
+    Process.register(self, String.to_atom("dot #{dot_id}"))
+    {:ok, %{"id" => dot_id, "color" => random_color}, socket}
   end
 
   def handle_in(msg, payload, socket) do
