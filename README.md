@@ -38,4 +38,10 @@ Here is a brief overview, each branch is called stepX where X is:
 ## Notes
 This demo was put together for the [Copenhagen Elixir June 2015 meetup](http://github.com/cphex/cphex/issues/20)
 
-The few "slides" I had can be found [here](http://github.com/madsflensted/presentations/cphex_phoenix_and_elm)
+The few "slides" I had can be found [here](https://github.com/madsflensted/presentations/tree/master/cphex_phoenix_and_elm)
+
+## License
+MIT License
+
+## Copyright
+2015 Mads Flensted-Urech
