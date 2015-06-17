@@ -5,8 +5,8 @@ defmodule Dots.DotsChannel do
     {:ok, socket}
   end
 
-  def handle_in(msg, payload, socket) do
-    broadcast! socket, msg, payload
-    {:noreply, socket}
-  end
+  # def handle_in(msg, payload, socket) do
+  #   broadcast! socket, msg, payload
+  #   {:noreply, socket}
+  # end
 end
