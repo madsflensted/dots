@@ -25,3 +25,5 @@ erl_crash.dump
 
 # Elm build artifacts
 /elm-stuff
+elm.js
+ttb_last_config
