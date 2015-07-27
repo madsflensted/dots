@@ -20,7 +20,4 @@ defmodule Dots.Router do
     get "/pad", PageController, :pad
   end
 
-  socket "/ws", Dots do
-    channel "dots:*", DotsChannel
-  end
 end

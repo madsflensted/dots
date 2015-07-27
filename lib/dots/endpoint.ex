@@ -1,6 +1,8 @@
 defmodule Dots.Endpoint do
   use Phoenix.Endpoint, otp_app: :dots
 
+  socket "/ws", Dots.UserSocket
+
   # Serve at "/" the static files from "priv/static" directory.
   #
   # You should set gzip to true if you are running phoenix.digest
@@ -12,6 +14,7 @@ defmodule Dots.Endpoint do
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
   if code_reloading? do
+    socket "/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket
     plug Phoenix.LiveReloader
     plug Phoenix.CodeReloader
   end
@@ -29,7 +32,8 @@ defmodule Dots.Endpoint do
   plug Plug.Session,
     store: :cookie,
     key: "_dots_key",
+    # :encryption_salt needs to be removed for 0.15.0 - but waht about :signing_salt?
     signing_salt: "umF3Ou1d"
 
-  plug :router, Dots.Router
+  plug Dots.Router
 end
