@@ -2,7 +2,7 @@ defmodule Dots.DotsChannel do
   use Phoenix.Channel
 
   def join("dots:updates", _auth_msg, socket) do
-    :random.seed(:erlang.now())
+    :random.seed(:erlang.unique_integer())
     dot_id = random_id
     Process.register(self, String.to_atom("dot #{dot_id}"))
     {:ok, %{"id" => dot_id, "color" => random_color}, socket}

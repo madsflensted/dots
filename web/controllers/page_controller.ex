@@ -1,8 +1,6 @@
 defmodule Dots.PageController do
   use Dots.Web, :controller
 
-  plug :action
-
   def index(conn, _params) do
     render conn, "index.html"
   end
